@@ -1,14 +1,17 @@
 package com.bridgelabz.EmployeePayrollApp.controller;
 
 /*
-   Use Case : 9
-   Database setting as Environment Variable
-   Open the MySQL Client and run the script to set up DB, User and Privileges.
+   Use Case : 10
+   Adding Validation to Name Field(EmployeeDTO) so the REST call can be validated
+   - To begin with make it a required field i.e. a not empty field (@NotBlank)
+   - Then add pattern to it. (@Pattern)
+   - The Validation needs to be done for both Create and Update REST Calls. (using @Valid on @RequestBody)
 */
 
 import com.bridgelabz.EmployeePayrollApp.dto.EmployeePayrollDTO;
 import com.bridgelabz.EmployeePayrollApp.model.Employee;
 import com.bridgelabz.EmployeePayrollApp.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,13 +41,13 @@ public class EmployeeRestController {
     }
 
     @PostMapping("/create")
-    public String creatingEmployeeRecord(@RequestBody EmployeePayrollDTO employeeDTO){
+    public String creatingEmployeeRecord(@Valid @RequestBody EmployeePayrollDTO employeeDTO){
         Employee employee=employeeService.createEmployeeRecord(employeeDTO);
         return "Created employee record\nname = " + employee.getName() + "\nsalary = " + employee.getSalary();
     }
 
     @PutMapping("/update/{id}")
-    public String updatingEmployeeDetails(@PathVariable long id,@RequestBody EmployeePayrollDTO employeeDTO) {
+    public String updatingEmployeeDetails(@PathVariable long id, @Valid @RequestBody EmployeePayrollDTO employeeDTO) {
         Employee employee = employeeService.updateEmployeeRecord(id, employeeDTO);
         if (employee != null) {
             return "Updated employee record\nname = " + employee.getName() + "\nsalary = " + employee.getSalary();
