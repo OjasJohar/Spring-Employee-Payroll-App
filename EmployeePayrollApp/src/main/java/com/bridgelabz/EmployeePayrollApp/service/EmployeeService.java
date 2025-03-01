@@ -12,6 +12,7 @@ import java.util.List;
 public class EmployeeService {
 
     List<Employee> employees;
+    private static int empId=1;
 
     EmployeeService(){
         employees=new ArrayList<>();
@@ -29,14 +30,8 @@ public class EmployeeService {
     }
 
     public Employee createEmployeeRecord(EmployeePayrollDTO employeeDTO){
-        Employee employee=new Employee();
-
-        String name=employeeDTO.getName();
-        double salary=employeeDTO.getSalary();
-
-        employee.setName(name);
-        employee.setSalary(salary);
-
+        Employee employee=new Employee(empId,employeeDTO);
+        empId++;
         employees.add(employee);
         return employee;
     }
