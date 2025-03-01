@@ -27,6 +27,10 @@ public class EmployeeService {
                 .orElseThrow( ()->new EmployeeNotFoundException(id));
     }
 
+    public List<Employee> getEmployeeByDepartment(String department) {
+        return employeeRepository.findEmployeesByDepartment(department);
+    }
+
     public Employee createEmployeeRecord(EmployeePayrollDTO employeeDTO){
         Employee employee=new Employee(employeeDTO);
         employeeRepository.save(employee);
