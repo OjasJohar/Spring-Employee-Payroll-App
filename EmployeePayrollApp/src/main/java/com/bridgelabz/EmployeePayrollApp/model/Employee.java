@@ -14,7 +14,7 @@ public class Employee {
 
     @Id //specifies the Primary Key.
     @GeneratedValue(strategy = GenerationType.AUTO) //id generation is set to auto.
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String name;
